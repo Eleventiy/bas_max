@@ -1,0 +1,75 @@
+// Buttons
+@mixin button($display) {
+	position: relative;
+	z-index: 1;
+	display: $display;
+	padding: 18.5px 46px;
+	overflow: hidden;
+	color: $whiteColor;
+	font-family: $OpenSans;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1;
+	text-transform: uppercase;
+	border: none;
+	background: linear-gradient(-105deg, $mainColor, $mainColor2);
+	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+	outline: 0;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		width: 0;
+		height: 100%;
+		background-color: $whiteColor;
+		backface-visibility: hidden;
+		transition: width 0.5s cubic-bezier(0.645,0.045,0.355,1.000);
+	}
+	//&:active,
+	//&.active {
+	//	box-shadow: inset 4px 4px 15px 0 rgba(0, 0, 0, 0.15);
+	//}
+	&:hover {
+		color: $blackColor;
+		&::before {
+			width: 100%;
+		}
+	}
+}
+
+
+// Visually hidden
+@mixin vis-hid {
+	border: 0;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+// Custom button tag
+@mixin btn-tag {
+	display: block;
+	margin: 0;
+	padding: 0;
+	overflow: visible;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	border: 0;
+	background-color: transparent;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: 0;
+}

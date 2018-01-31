@@ -1,0 +1,37 @@
+{
+  "name": "bas_max",
+  "version": "1.0.0",
+  "description": "Gulp web template",
+  "main": "index.js",
+  "author": "Lev Glushchenko",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-cache": "^1.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-csslint": "^1.0.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "inputmask": "^3.3.11",
+    "jquery": "^3.3.1",
+    "jquery-migrate": "^3.0.1",
+    "jquery-validation": "^1.17.0",
+    "normalize.css": "^7.0.0",
+    "page-scroll-to-id": "^1.5.8",
+    "sass-mediaqueries": "^1.6.1",
+    "slick-carousel": "^1.8.1",
+    "snapsvg": "^0.5.1"
+  }
+}

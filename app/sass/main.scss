@@ -1,0 +1,2259 @@
+@import "./node_modules/normalize.css/normalize";
+@import "./node_modules/slick-carousel/slick/slick.scss";
+@import "./node_modules/slick-carousel/slick/slick-theme.scss";
+@import "vars";
+@import "mixins";
+@import "./node_modules/sass-mediaqueries/_media-queries.scss";
+
+// Google fonts
+@import url('https://fonts.googleapis.com/css?family=Jura:400,500,700|Open+Sans:400,600,700|Orbitron:400,500&subset=latin-ext');
+
+
+// *** COMMON STYLES ***
+// =====================
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+::-webkit-input-placeholder {
+	color: $textColor;
+	font-weight: normal;
+	opacity: 1;
+}
+:-moz-placeholder {
+	color: $textColor;
+	font-weight: normal;
+	opacity: 1;
+}
+::-moz-placeholder {
+	color: $textColor;
+	font-weight: normal;
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: $textColor;
+	font-weight: normal;
+	opacity: 1;
+}
+
+html,
+body {
+	height: 100%
+}
+
+body {
+	position: relative;
+	overflow-x: hidden;
+	color: $textColor;
+	font-family: $OpenSans;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 26px;
+	background-color: $whiteColor;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	text-decoration: none;
+	outline: 0;
+}
+
+.container {
+	width: 100%;
+	max-width: 1170px;
+	margin: 0 auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.highlight-color {
+	color: $mainColor;
+	font-weight: bold;
+}
+
+// *** SECTION TITLES ***
+// ======================
+.sect-title {
+	position: relative;
+	margin: 0;
+	padding-left: 96px;
+	color: $textColor;
+	font-size: 36px;
+	font-weight: bold;
+	line-height: 1;
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: 5px;
+		display: block;
+		width: 66px;
+		height: 3px;
+		background-color: $mainColor3;
+	}
+
+	span {
+		color: $mainColor;
+	}
+}
+
+
+// *** BROWSER UPGRADE ***
+// =======================
+.browserupgrade {
+	position: relative;
+	z-index: 101;
+	margin: 0;
+	padding: 30px 0;
+
+	color: tomato;
+	font-family: $OpenSans;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: center;
+	background-color: #fff;
+
+	a {
+		color: $mainColor;
+		transition: all 0.25s ease-in-out;
+		&:hover,
+		&:active,
+		&.active {
+			color: $textColor;
+		}
+	}
+}
+
+
+// *** MOBILE TOP LINE ***
+// =======================
+.m-top-line {
+	display: flex;
+	align-items: center;
+	background-color: $whiteColor;
+	@include min-screen($grid) {
+		@include vis-hid;
+	}
+
+	&__sandwich {
+		position: relative;
+		z-index: 201;
+		flex: 1;
+		max-width: 24px;
+		height: 24px;
+		@include btn-tag;
+		&.active {
+			span {
+				margin-bottom: 0;
+				&:first-child {
+					position: relative;
+					top: 2px;
+					max-width: 100%;
+					transform: rotate(45deg);
+				}
+				&:nth-child(2) {
+					@include vis-hid;
+				}
+				&:last-child {
+					transform: rotate(-45deg);
+				}
+			}
+		}
+
+		span {
+			display: block;
+			height: 2px;
+			margin-bottom: 5px;
+			background-color: $textColor;
+			transition: all 0.25s ease-in-out;
+			&:last-child {
+				margin-bottom: 0;
+			}
+			&:first-child {
+				max-width: 21px;
+			}
+			&:nth-child(2) {
+				max-width: 17px;
+			}
+		}
+	}
+
+	&__logo {
+		flex: 1;
+		max-width: 77px;
+		margin: 0 auto;
+
+		img {
+			vertical-align: middle;
+		}
+	}
+}
+
+
+// *** 1. MAIN HEADER ***
+// ======================
+.main-header {
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 103px;
+	border-bottom: 1px solid rgba($whiteColor, 0.1);
+	background-color: transparent;
+	@include max-screen($tablet-max) {
+		display: flex;
+		align-items: center;
+		min-height: 47px;
+	}
+	@include screen($tablet, $tablet-max) {
+		min-height: 55px;
+	}
+
+	&.is-sticky {
+		position: fixed;
+		min-height: 71px;
+		border: 0;
+		background-color: $whiteColor;
+		box-shadow: 0 5px 5px rgba($blackColor, 0.4);
+		animation: slide-down 0.5s ease-in-out forwards;
+
+		.top-nav__link {
+			padding: 18px 0;
+			color: $textColor;
+			&::after {
+				bottom: 0;
+			}
+		}
+	}
+}
+
+.top-nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	&.active {
+		left: 0;
+	}
+	@include max-screen($tablet-max) {
+		position: fixed;
+		top: 0;
+		left: -100vw;
+		z-index: 200;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+		height: 100vh;
+		overflow: auto;
+		padding-top: 50px;
+		background-color: $whiteColor;
+		transition: all 0.25s ease-in-out;
+	}
+	@include screen($tablet, $tablet-max) {
+		width: 50%;
+		transition: all 0.5s ease-in-out;
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		@include max-screen($tablet-max) {
+			flex-direction: column;
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	&__item {
+		display: block;
+		margin-right: 50px;
+		&:last-child {
+			margin-right: 0;
+		}
+		@include max-screen($tablet-max) {
+			width: 100%;
+			margin-right: 0;
+			margin-bottom: 15px;
+		}
+		@include screen($tablet, $tablet-max) {
+			width: auto;
+		}
+	}
+
+	&__link {
+		position: relative;
+		display: block;
+		padding: 34.5px 0;
+		color: $whiteColor;
+		font-family: $OpenSans;
+		font-size: 15px;
+		font-weight: 400;
+		line-height: 35px;
+		transition: all 0.15s ease-in-out;
+		&::after {
+			content: '';
+			position: absolute;
+			right: 0;
+			left: 0;
+			bottom: -1.5px;
+			display: block;
+			width: 0;
+			height: 3px;
+			background-color: transparent;
+			transition: width 0.15s ease-in-out;
+			@include max-screen($mobile) {
+				@include vis-hid;
+			}
+		}
+		&:hover,
+		&:active,
+		&.active,
+		&.mPS2id-highlight {
+			color: $mainColor;
+			&::after {
+				width: 100%;
+				background-color: $mainColor;
+			}
+			@include max-screen($mobile) {
+				color: $whiteColor;
+				background-color: $mainColor;
+			}
+		}
+		@include max-screen($mobile) {
+			width: 100%;
+			padding: 15px 0;
+		}
+	}
+
+	&__logo {
+		display: block;
+		width: 100%;
+		max-width: 94px;
+		@include max-screen($tablet-max) {
+			order: -1;
+			max-width: 150px;
+			margin-bottom: 50px;
+		}
+	}
+}
+
+
+// *** 2. SECTION "HERO" ***
+// =========================
+.sect-hero {
+	padding: 165px 0 380px;
+	background: $blackColor url("../img/backgrounds/hero_bg.jpg") no-repeat center;
+	background-size: cover;
+	@include max-screen($tablet-max) {
+		background: $blackColor url("../img/backgrounds/mobile/hero_bg.jpg") no-repeat center;
+		background-size: cover;
+	}
+	@include max-screen($mobile) {
+		margin-top: 47px;
+		padding: 85px 0 50px;
+	}
+	@include screen($tablet, $tablet-max) {
+		margin-top: 55px;
+		padding: 175px 0;
+	}
+
+	&__content {
+		margin-left: 96px;
+	}
+
+	&__descr {
+		margin-bottom: 25px;
+		@include max-screen($tablet-max) {
+			text-align: center;
+		}
+		@include max-screen($mobile) {
+			margin-bottom: 60px;
+			//font-size: 18px;
+			//line-height: 24px;
+		}
+
+		h2 {
+			color: $whiteColor;
+			font-family: $Jura;
+			font-size: 36px;
+			font-weight: normal;
+			line-height: 42px;
+		}
+	}
+
+	&__order {
+		position: relative;
+		display: flex;
+		align-items: center;
+		@include max-screen($tablet-max) {
+			flex-direction: column;
+		}
+	}
+
+	&__link {
+		@include button(inline-block);
+	}
+
+	&__separator {
+		display: block;
+		margin: 0 30px;
+		color: $whiteColor;
+		font-family: $OpenSans;
+		font-size: 11px;
+		font-weight: bold;
+		line-height: 17px;
+		text-transform: uppercase;
+		@include max-screen($tablet-max) {
+			order: -1;
+			margin: 15px 0;
+		}
+		@include max-screen($mobile) {
+			margin: 7px 0 15px;
+			font-size: 9px;
+			line-height: 17px;
+		}
+	}
+
+	&__phones {
+		display: flex;
+		flex-direction: column;
+		@include max-screen($tablet-max) {
+			order: -2;
+		}
+	}
+
+	&__phone {
+		display: block;
+		color: $whiteColor;
+		font-family: $Jura;
+		font-size: 22px;
+		font-weight: bold;
+		line-height: 35px;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		@include max-screen($mobile) {
+			font-size: 18px;
+			line-height: 30px;
+		}
+	}
+
+	&__pointer {
+		position: absolute;
+		top: 65px;
+		left: -135px;
+		@include max-screen($mobile) {
+			@include vis-hid;
+		}
+		@include screen($tablet, $tablet-max) {
+			top: 170px;
+			left: 140px;
+		}
+
+		&-img {
+			position: absolute;
+			top: -37px;
+			right: -96px;
+		}
+
+		&-text {
+			display: block;
+			width: 28px;
+			height: 28px;
+			color: $textColor;
+			font-family: $Jura;
+			font-size: 14px;
+			font-weight: bold;
+			line-height: 1;
+			text-transform: uppercase;
+			@include max-screen($tablet-max) {
+				color: $whiteColor;
+			}
+
+			&--1 {
+				transform: rotate(-10deg);
+			}
+
+			&--2 {
+				position: absolute;
+				top: 15px;
+				left: 25px;
+				transform: rotate(-15deg);
+			}
+		}
+	}
+}
+
+
+// *** 2.1. SECTION "ABOUT" ***
+// ============================
+.sect-about {
+	padding: 90px 0 100px;
+	background: transparent url("../img/backgrounds/dots_layout.png") no-repeat right;
+
+	&__title {
+		margin-bottom: 17px;
+	}
+
+	&__descr {
+		margin-left: 96px;
+		margin-bottom: 42px;
+	}
+
+	&__btn {
+		@include btn-tag();
+		@include button(inline-block);
+		margin-left: 96px;
+		&::before {
+			background-color: $mainColor3;
+		}
+	}
+}
+
+
+// *** 3. SECTION "SERVICES" ***
+// =============================
+.sect-services {
+	background-color: $mainColor;
+}
+
+.services-items {
+	display: flex;
+	@include max-screen($mobile) {
+		@include vis-hid;
+	}
+	@include screen($tablet, $tablet-max) {
+		margin: 0 -15px;
+	}
+}
+
+.services-item {
+	flex: 1;
+	padding: 70px 30px 64px 25px;
+	color: $whiteColor;
+	border-right: 1px solid rgba($whiteColor, 0.5);
+	transition: all 0.25s ease-in-out;
+	&:last-child {
+		border-right: 0;
+	}
+	&:hover {
+		color: $mainColor;
+		border-color: transparent;
+		background-color: $whiteColor;
+		box-shadow: 4px 4px 24px 0 rgba(0, 0, 0, 0.28);
+		transform: scale(1.02);
+
+		.services-item__icon svg {
+			fill: $mainColor;
+		}
+
+		.services-item__list-item {
+			color: $textColor;
+		}
+	}
+
+	&__icon {
+		margin-bottom: 15px;
+
+		svg {
+			width: 71px;
+			height: 70px;
+			fill: $whiteColor;
+		}
+	}
+
+	&__title {
+		margin: 0;
+		margin-bottom: 18px;
+		font-family: $OpenSans;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 28px;
+		text-transform: uppercase;
+	}
+
+	&__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&-item {
+			position: relative;
+			display: block;
+			margin-bottom: 18px;
+			padding-left: 8px;
+			font-family: $OpenSans;
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 24px;
+			&::after {
+				content: '-';
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		}
+	}
+}
+
+.service-accordion-btn {
+	@include btn-tag;
+	position: relative;
+	bottom: -19px;
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 38px;
+	height: 38px;
+	border-radius: 100%;
+	background-color: $whiteColor;
+	box-shadow: 0 3px 10px 0 rgba($blackColor, 0.23);
+	&.active {
+		span {
+			&:last-child {
+				@include vis-hid;
+			}
+		}
+	}
+
+	span {
+		position: absolute;
+		display: block;
+		width: 12px;
+		height: 2px;
+		background-color: $mainColor;
+		transition: all 0.25s ease-in-out;
+		&:last-child {
+			transform: rotate(90deg);
+		}
+	}
+}
+
+// Mobile version
+.m-services-items {
+	margin: 0 -15px 50px;
+	@include min-screen($tablet) {
+		@include vis-hid;
+	}
+	&__title {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 0;
+		padding: 40px 0 0;
+		outline: 0;
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -50px;
+			left: 0;
+			display: block;
+			width: 100%;
+			height: 50px;
+			border-top: 1px solid rgba($whiteColor, 0.2);
+			background-color: $mainColor;
+		}
+		&.ui-state-active {
+			position: relative;
+			z-index: 2;
+			box-shadow: 0 5px 8px 0 rgba($blackColor, 0.15);
+			&::after {
+				@include vis-hid;
+			}
+
+			.service-accordion-btn {
+				span:last-child {
+					@include vis-hid;
+				}
+			}
+		}
+
+		svg {
+			fill: $whiteColor;
+		}
+	}
+
+	&__descr {
+		display: block;
+		margin: 15px 0;
+		color: $whiteColor;
+		font-family: $OpenSans;
+		font-size: 18px;
+		line-height: 24px;
+		text-transform: uppercase;
+	}
+
+	&__content {
+		position: relative;
+		padding: 30px 40px 65px;
+		background-color: $whiteColor;
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			display: block;
+			width: 100%;
+			height: 50px;
+			background-color: $mainColor;
+		}
+	}
+
+	&__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		&-item {
+			position: relative;
+			padding-left: 10px;
+			color: $textColor;
+			font-family: $OpenSans;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 24px;
+
+			&::before {
+				content: '-';
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+			}
+		}
+	}
+}
+
+
+// *** 4. SECTION "WHY US" ***
+// ===========================
+.sect-whyUs {
+	padding: 90px 0 125px;
+	@include max-screen($mobile) {
+		padding: 45px 0 50px;
+	}
+
+	&__title {
+		margin-bottom: 15px;
+		//@include max-screen($mobile) {
+		//	margin: 0 0 35px;
+		//	font-size: 24px;
+		//	line-height: 28px;
+		//}
+	}
+
+	&__descr {
+		margin-left: 96px;
+		margin-bottom: 40px;
+	}
+}
+
+.whyUs-slider {
+	display: flex;
+	justify-content: space-between;
+	margin-left: 96px;
+
+	&__thumbs {
+		flex: 1 40%;
+		max-width: 40%;
+		@include max-screen($mobile) {
+			@include vis-hid;
+		}
+	}
+
+	&__accordion {
+		flex: 1 50%;
+		max-width: 50%;
+		@include max-screen($mobile) {
+			flex: 1 100%;
+			max-width: 100%;
+		}
+	}
+}
+
+.slider-thumb {
+	display: none;
+	&.active {
+		display: block;
+		img {
+			animation: scale 0.5s ease-in-out;
+		}
+	}
+}
+
+.accordion-tab {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 40px;
+	@include max-screen($mobile) {
+		margin-bottom: 0;
+		padding-bottom: 40px;
+	}
+	&:last-child {
+		margin-bottom: 0;
+		@include max-screen($mobile) {
+			padding-bottom: 0;
+		}
+		&::after {
+			@include vis-hid;
+		}
+	}
+	&::after {
+		content: '';
+		position: absolute;
+		top: 58px;
+		left: 30px;
+		z-index: -1;
+		width: 1px;
+		height: 100%;
+		background-color: $mainColor;
+		@include min-screen($tablet) {
+			@include vis-hid;
+		}
+	}
+
+	input[type="radio"] {
+		box-sizing: border-box;
+		position: absolute;
+		z-index: -1;
+		padding: 0;
+		opacity: 0;
+	}
+
+	&__content {
+		//display: none;
+		max-height: 0;
+		overflow: hidden;
+		padding-left: 100px;
+		transition: max-height 0.5s;
+		font-size: 16px;
+		line-height: 24px;
+		@include max-screen($mobile) {
+			padding-left: 64px;
+			font-size: 14px;
+			line-height: 22px;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	/* :checked */
+	input[type="radio"]:checked ~ .accordion-tab__content {
+		//display: block;
+		max-height: 4.4em;
+		@include max-screen($mobile) {
+			max-height: 9em;
+		}
+	}
+	input[type="radio"]:checked ~ .accordion-tab__head svg path {
+		fill: $whiteColor;
+	}
+
+	&__head {
+		position: relative;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+
+		svg {
+			width: 100%;
+			max-width: 58px;
+			height: 58px;
+			margin-right: 20px;
+			transition: max-height 0.25s linear;
+			@include max-screen($mobile) {
+				margin-right: 12px;
+			}
+
+			path {
+				fill-rule:evenodd;
+				clip-rule:evenodd;
+				fill:#2C8ECE;
+				stroke:#2C8ECE;
+				stroke-width:0.5;
+				stroke-miterlimit:10;
+			}
+		}
+	}
+
+	&__title {
+		display: block;
+		color: $textColor;
+		font-family: $OpenSans;
+		font-size: 24px;
+		font-weight: 600;
+		line-height: 28px;
+		@include max-screen($mobile) {
+			max-width: 50%;
+			font-size: 20px;
+			line-height: 28px;
+			word-break: break-all;
+		}
+	}
+}
+
+
+// *** 5. SECTION "FEATURES" ***
+// =============================
+.sect-features {
+	padding: 75px 0 64px;
+	background-color: $mainColor;
+	background-image: linear-gradient(-105deg, $mainColor, $mainColor2);
+	@include max-screen($mobile) {
+		padding: 50px 0 40px;
+	}
+}
+
+.features-list {
+	display: flex;
+	align-items: baseline;
+	@include max-screen($mobile) {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.features-item {
+	flex: 1;
+	border-right: 1px solid rgba($whiteColor, 0.3);
+	color: $whiteColor;
+	font-family: $OpenSans;
+	text-align: center;
+	&:last-child {
+		border-right: 0;
+	}
+	@include max-screen($mobile) {
+		max-width: 70%;
+		margin-bottom: 33px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__descr {
+		font-size: 18px;
+		font-weight: normal;
+		line-height: 24px;
+		@include max-screen($mobile) {
+			font-size: 16px;
+			line-height: 22px;
+		}
+	}
+}
+
+.features-head {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	margin-bottom: 18px;
+	@include max-screen($mobile) {
+		margin-bottom: 15px;
+	}
+
+	img {
+		width: 39px;
+		height: 39px;
+	}
+
+	&__num {
+		margin-left: 12px;
+		font-family: $Jura;
+		font-size: 42px;
+		font-weight: bold;
+		line-height: 31px;
+		text-transform: uppercase;
+	}
+}
+
+// *** 6. SECTION "EXPERIENCE" ***
+// ===============================
+.sect-experience {
+	padding: 88px 0 100px;
+
+	&__title {
+		margin-bottom: 13px;
+	}
+
+	&__descr {
+		margin-left: 96px;
+		margin-bottom: 42px;
+
+		p {
+			margin: 0;
+		}
+	}
+}
+
+.experience-grid {
+	display: flex;
+}
+
+.experience-box {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	padding: 32px 45px 50px;
+	color: $whiteColor;
+	background-position: right;
+	background-repeat: no-repeat;
+	transition: all 0.25s ease-in-out;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		background-color: rgba(#001e2e, 0.8);
+	}
+
+	&--1 {
+		background-image: url("../img/backgrounds/experience-1.jpg");
+	}
+	&--2 {
+		background-image: url("../img/backgrounds/experience-2.jpg");
+	}
+	&--3 {
+		background-image: url("../img/backgrounds/experience-3.jpg");
+	}
+	&--4 {
+		background-image: url("../img/backgrounds/experience-4.jpg");
+	}
+	&--5 {
+		background-image: url("../img/backgrounds/experience-5.jpg");
+	}
+
+	&__descr {
+		margin-bottom: 20px;
+	}
+
+	&__num {
+		display: block;
+		font-size: 12px;
+		font-weight: bold;
+		line-height: 26px;
+	}
+
+	&__name {
+		display: block;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 26px;
+	}
+
+	&__hidden {
+		&-list {
+			margin: 0;
+			margin-bottom: 75px;
+			padding: 0;
+			opacity: 0;
+			transition: opacity 0.25s ease-in-out;
+		}
+
+		&-item {
+			margin-bottom: 8px;
+			font-size: 12px;
+			font-weight: 400;
+			line-height: 18px;
+			letter-spacing: 0.05em;
+		}
+	}
+
+	&__btn {
+		@include btn-tag();
+		position: relative;
+		overflow: hidden;
+		align-self: flex-start;
+		min-height: 50px;
+		min-width: 50px;
+		margin-top: auto;
+		padding: 14.5px 3.5px;
+		border: 2px solid $whiteColor;
+		transition: all 0.25s ease-in-out;
+
+		&-icon {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 16px;
+			height: 5px;
+			display: block;
+			overflow: hidden;
+			background: transparent url("../img/icons/arrow.svg") no-repeat;
+			transform: translate(-50%, -50%);
+		}
+
+		&-text {
+			position: absolute;
+			top: 0;
+			right: 6vh;
+			height: 101%;
+			width: 100%;
+			line-height: 47px;
+			background-color: #fff;
+			display: block;
+			color: $mainColor;
+			font-weight: bold;
+			transition: all 0.25s ease-in-out;
+			text-transform: uppercase;
+		}
+	}
+
+	&:hover {
+		&::before {
+			
+		}
+		.experience-box__hidden-list {
+			opacity: 1;
+		}
+		.experience-box__btn {
+			min-width: 130px;
+		}
+		.experience-box__btn-text {
+			right: 0;
+		}
+		.experience-box__btn-icon {
+			opacity: 0;
+		}
+	}
+}
+
+
+// *** 7. SECTION "TESTIMONIALS" ***
+// =================================
+.sect-testimonials {
+	position: relative;
+	padding: 86px 0 90px;
+	background: $blackColor url("../img/backgrounds/testimonials_bg.jpg") no-repeat;
+	background-size: cover;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba($blackColor, 0.7);
+	}
+	@include max-screen($mobile) {
+		padding: 42px 0;
+	}
+
+	&__title {
+		margin-bottom: 44px;
+		color: $whiteColor;
+		@include max-screen($mobile) {
+			margin: 0 0 30px;
+			font-size: 24px;
+			line-height: 32px;
+		}
+	}
+
+	// Custom "Slick Carousel" styles
+	.slick-track {
+		display: flex;
+		align-items: center;
+	}
+
+	.slick-dots {
+		bottom: -30px;
+		li {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			width: 15px;
+			height: 15px;
+			margin: 0 9px;
+			button {
+				height: 11px;
+				width: 11px;
+				border-radius: 100%;
+				background-color: #d1d1d1;
+				&::before {
+					@include vis-hid;
+				}
+			}
+			&.slick-active {
+				button {
+					width: 15px;
+					height: 15px;
+					background-color: #0093e5;
+				}
+			}
+		}
+	}
+}
+
+.testimonials-list {
+	display: flex;
+	align-items: center;
+}
+
+.testimonials-item {
+	flex: 1;
+	margin: 0 10px;
+	color: $whiteColor;
+	text-align: center;
+
+	&__descr {
+		font-family: $OpenSans;
+		font-size: 14px;
+		font-weight: normal;
+		line-height: 24px;
+		letter-spacing: -0.01em;
+	}
+
+	img {
+		margin: 0 auto;
+	}
+}
+
+.testimonials-head {
+	position: relative;
+	margin-bottom: 20px;
+	padding-bottom: 30px;
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+
+		display: block;
+		width: 47px;
+		height: 3px;
+		background-color: $whiteColor;
+
+		transform: translateX(-50%);
+	}
+
+	&__name {
+		display: block;
+		margin-top: 30px;
+
+		font-family: $OpenSans;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 24px;
+		text-transform: uppercase;
+	}
+}
+
+
+// *** 8. SECTION "CORRUPT" ***
+// ============================
+.sect-corrupt {
+	padding: 61px 0;
+	background-color: $mainColor;
+	background:
+		url("../img/backgrounds/dots_layout-white.png") no-repeat right,
+		linear-gradient(-105deg, $mainColor, $mainColor2);
+	@include max-screen($mobile) {
+		@include vis-hid;
+	}
+
+	&__descr {
+		margin: 0;
+		margin-left: 96px;
+		color: $whiteColor;
+		font-family: $Jura;
+		font-size: 24px;
+		font-weight: bold;
+		line-height: 34px;
+		letter-spacing: -0.025em;
+		text-transform: uppercase;
+		@include screen($tablet, $tablet-max) {
+			font-size: 20px;
+			line-height: 34px;
+		}
+	}
+}
+
+
+// *** 9. SECTION "PRICING" ***
+// ============================
+.sect-pricing {
+	padding: 93px 0 102px;
+	@include max-screen($mobile) {
+		padding: 42px 0 50px;
+	}
+
+	&__title {
+		margin-bottom: 57px;
+		@include max-screen($mobile) {
+			margin: 0 0 22px;
+			font-size: 24px;
+			line-height: 32px;
+		}
+
+		span {
+			color: $mainColor;
+			@include max-screen($mobile) {
+				display: block;
+			}
+		}
+	}
+}
+
+.pricing-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	@include max-screen($mobile) {
+		@include vis-hid;
+	}
+	@include screen($tablet, $tablet-max) {
+		justify-content: center;
+	}
+}
+
+.pricing-box {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	width: 100%;
+	max-width: 260px;
+	padding-bottom: 30px;
+	color: $blackColor;
+	font-family: $OpenSans;
+	text-align: center;
+	background-color: $grayColor;
+	transition: all 0.15s linear;
+	@include screen($tablet, $tablet-max) {
+		margin: 0 30px 50px;
+	}
+
+	&--share {
+		position: relative;
+		&::after {
+			content: '';
+			position: absolute;
+			top: -8px;
+			left: -8px;
+			display: block;
+			width: 84px;
+			height: 86px;
+			background: transparent url("../img/icons/share.png") no-repeat;
+		}
+	}
+
+	&__head {
+		padding: 35px 0;
+		color: $mainColor;
+	}
+
+	&__service {
+		display: block;
+		margin-bottom: 15px;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 24px;
+	}
+
+	&__price {
+		display: block;
+		font-family: $Jura;
+		font-size: 64px;
+		font-weight: normal;
+		line-height: 45px;
+		text-transform: uppercase;
+
+		small {
+			font-size: 16px;
+			line-height: 29px;
+		}
+	}
+
+	&__month {
+		display: block;
+		color: $textColor;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	&__list {
+		margin: 0 0 35px;
+		padding: 0;
+		list-style: none;
+	}
+
+	&__item {
+		display: block;
+		padding: 6.5px 10px;
+		font-size: 12px;
+		font-weight: normal;
+		line-height: 24px;
+
+		&:nth-child(odd) {
+			background-color: $grayLightColor;
+		}
+	}
+
+	&__order {
+		display: inline-block;
+		max-width: 60%;
+		margin: auto auto 0;
+		padding: 18.5px 32px;
+		color: $mainColor;
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 1;
+		text-transform: uppercase;
+		text-align: center;
+		border: 2px solid $mainColor;
+		background-color: transparent;
+		transition: all 0.25s ease-in-out;
+	}
+
+	&:hover {
+		color: $whiteColor;
+		background-color: $mainColor;
+		//background: linear-gradient(-135deg, $mainColor, $mainColor2);
+
+		.pricing-box__head {
+			color: $whiteColor;
+			background-color: $mainColor;
+		}
+
+		.pricing-box__month {
+			color: $whiteColor;
+		}
+
+		.pricing-box__item:nth-child(odd) {
+			background-color: $mainColor;
+			//@include max-screen($mobile) {
+			//	background-color: $grayColor;
+			//}
+		}
+
+		.highlight-color {
+			color: $whiteColor;
+		}
+
+		.pricing-box__order {
+			background-color: $whiteColor;
+			border-color: $whiteColor;
+			//@include max-screen($mobile) {
+			//	background-color: transparent;
+			//}
+		}
+	}
+}
+
+.pricing-accordion-btn {
+	@include btn-tag;
+	position: relative;
+	bottom: -18px;
+	z-index: 2;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 100%;
+	background-color: $whiteColor;
+	box-shadow: 0 3px 10px 0 rgba($blackColor, 0.23);
+	transition: all 0.25s;
+
+	span {
+		display: block;
+		width: 6px;
+		height: 2px;
+		background-color: $mainColor;
+		&:first-child {
+			margin-right: -1.5px;
+			transform: rotate(45deg);
+		}
+		&:last-child {
+			margin-left: -1.5px;
+			transform: rotate(-45deg);
+		}
+	}
+}
+
+// Mobile version
+.m-pricing-grid {
+	@include min-screen($tablet) {
+		@include vis-hid;
+	}
+}
+
+.m-pricing-box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 30px 0 0;
+	padding: 25px 0 50px;
+	color: $whiteColor;
+	text-align: center;
+	border-radius: 5px;
+	//border-top-left-radius: 5px;
+	//border-top-right-radius: 5px;
+	background-color: $mainColor;
+	outline: 0;
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: 50px;
+		border-top: 1px solid rgba($whiteColor, 0.20);
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		background-color: $mainColor;
+		transition: all 0.25s ease-in-out;
+	}
+	&:first-child {
+		margin: 0;
+	}
+	&.ui-state-active {
+		padding: 25px 0 0;
+		box-shadow: 0 9px 24px 0 rgba($blackColor, 0.25);
+		&::after {
+			@include vis-hid;
+		}
+		.pricing-accordion-btn {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__title {
+		display: block;
+		margin-bottom: 8px;
+		font-family: $OpenSans;
+		font-size: 22px;
+		font-weight: bold;
+		line-height: 24px;
+	}
+
+	&__price {
+		font-family: $Jura;
+		font-size: 48px;
+		font-weight: 400;
+		line-height: 1;
+		text-transform: uppercase;
+
+		small {
+			font-size: 16px;
+		}
+	}
+
+	&__month {
+		font-family: $Arial;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1;
+	}
+
+	&__order {
+		padding: 30px 0;
+		text-align: center;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		background-color: $mainColor;
+
+		a {
+			display: inline-block;
+			padding: 15px 41px;
+			color: $whiteColor;
+			font-family: $Arial;
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 1;
+			text-transform: uppercase;
+			text-align: center;
+			border: 1px solid $whiteColor;
+			background-color: transparent;
+			transition: all 0.25s ease-in-out;
+
+			&:hover,
+			&:active,
+			&.active {
+				color: $mainColor;
+				background-color: $whiteColor;
+			}
+		}
+	}
+
+	&__content {
+		&.ui-accordion-content-active {
+			box-shadow: 0 9px 24px 0 rgba($blackColor, 0.25);
+		}
+	}
+
+	&__list {
+		margin: 0;
+		padding: 15px 0 0;
+		list-style: none;
+		text-align: center;
+		background-color: $grayColor;
+	}
+
+	&__item {
+		display: block;
+		padding: 4px 0;
+		color: $blackColor;
+		font-family: $OpenSans;
+		font-size: 11px;
+		font-weight: 400;
+		line-height: 29px;
+		&:nth-child(even) {
+			background-color: $grayColor;
+		}
+	}
+}
+
+
+// *** 10. SECTION "TECHNOLOGIES" ***
+// ==================================
+.sect-tech {
+	position: relative;
+	padding: 90px 0;
+	background: $blackColor url("../img/backgrounds/testimonials_bg.jpg") no-repeat center;
+	background-size: cover;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba($blackColor, 0.7);
+	}
+	@include max-screen($mobile) {
+		padding: 42px 0;
+	}
+
+	&__title {
+		margin-bottom: 35px;
+		color: $whiteColor;
+		@include max-screen($mobile) {
+			@include vis-hid;
+		}
+		@include screen($tablet, $tablet-max) {
+			font-size: 25px;
+		}
+	}
+
+	// Custom "Slick Carousel" styles
+	.slick-track {
+		display: flex;
+		align-items: center;
+	}
+	.slick-dots {
+		bottom: -30px;
+		li {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			width: 15px;
+			height: 15px;
+			margin: 0 9px;
+			button {
+				width: 11px;
+				height: 11px;
+				border-radius: 100%;
+				background-color: #d1d1d1;
+				transition: all 0.25s ease-in-out;
+				&::before {
+					@include vis-hid;
+				}
+			}
+			&.slick-active {
+				button {
+					width: 15px;
+					height: 15px;
+					background-color: $mainColor;
+				}
+			}
+		}
+	}
+}
+
+.tech-item {
+	margin: 0 10px;
+	outline: 0;
+
+	img {
+		margin: 0 auto;
+	}
+}
+
+// Mobile version
+.m-sect-tech__title {
+	margin: 0 0 10px;
+	color: $whiteColor;
+	font-family: $OpenSans;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 32px;
+	text-align: center;
+	text-transform: uppercase;
+	@include min-screen($tablet) {
+		@include vis-hid;
+	}
+
+	span {
+		color: $mainColor;
+	}
+}
+
+
+// *** 11. SECTION "MAP" ***
+// =========================
+.sect-map {
+	position: relative;
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		z-index: 2;
+
+		width: 100%;
+		height: 8px;
+	}
+	&::before {
+		top: 0;
+		background: $mainColor url("../img/google-map/top-line.png") repeat-x;
+	}
+	&::after {
+		bottom: 0;
+		background: $mainColor url("../img/google-map/bottom-line.png") repeat-x;
+	}
+}
+.google-map {
+	//width: 100%;
+	height: 320px;
+	iframe {
+		width: 100%;
+		height: 320px;
+
+		border: none;
+	}
+}
+
+
+// *** MAIN FOOTER ***
+// ===================
+.main-footer {
+	width: 100%;
+	background-color: $whiteColor;
+}
+
+.footer-contacts {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-left: 96px;
+	padding: 70px 0 45px;
+	@include max-screen($mobile) {
+		padding: 50px 0 0;
+	}
+
+	&__info {
+		width: 100%;
+		max-width: 290px;
+		color: $textColor;
+		font-family: $OpenSans;
+		@include max-screen($mobile) {
+			max-width: 100%;
+			padding-bottom: 44px;
+		}
+		@include screen($tablet, $tablet-max) {
+			margin: 0 auto 50px;
+		}
+	}
+
+	&__icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 31px;
+		height: 31px;
+		margin-right: 20px;
+		border-radius: 100%;
+		border: 1px solid $mainColor;
+		background-color: transparent;
+		@include max-screen($mobile) {
+			width: 50px;
+			height: 50px;
+			margin-right: 0;
+			margin-bottom: 10px;
+		}
+
+		svg {
+			fill: $mainColor;
+		}
+
+		&--phone {
+			svg {
+				width: 15px;
+				height: 15px;
+				@include max-screen($mobile) {
+					width: 24px;
+					height: 24px;
+				}
+			}
+		}
+
+		&--mail {
+			svg {
+				width: 19px;
+				height: 11px;
+				@include max-screen($mobile) {
+					width: 31px;
+					height: 18px;
+				}
+			}
+		}
+
+		&--address {
+			svg {
+				width: 13px;
+				height: 17px;
+				@include max-screen($mobile) {
+					width: 21px;
+					height: 27px;
+				}
+			}
+		}
+	}
+
+	&__phones {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 45px;
+		@include max-screen($mobile) {
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 40px;
+		}
+		@include screen($tablet, $tablet-max) {
+			margin-bottom: 20px;
+		}
+	}
+
+	&__phone {
+		display: block;
+		color: $textColor;
+		font-size: 14px;
+		font-weight: 600;
+		transition: all 0.25s ease-in-out;
+
+		&:hover,
+		&:active,
+		&.active {
+			color: $mainColor;
+		}
+	}
+
+	&__mail {
+		display: flex;
+		align-items: center;
+		margin-bottom: 19px;
+		@include max-screen($mobile) {
+			flex-direction: column;
+			margin-bottom: 30px;
+		}
+
+		&-link {
+			color: $textColor;
+			font-family: $OpenSans;
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 1;
+			transition: all 0.25s ease-in-out;
+
+			&:hover,
+			&:active,
+			&.active {
+				color: $mainColor;
+			}
+		}
+	}
+
+	&__address {
+		display: flex;
+		align-items: center;
+		margin-bottom: 19px;
+		@include max-screen($mobile) {
+			flex-direction: column;
+			margin-bottom: 30px;
+		}
+	}
+
+	&__location {
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	&__welcome {
+		color: $mainColor;
+		font-family: $Jura;
+		font-size: 24px;
+		font-weight: bold;
+		line-height: 36px;
+		@include max-screen($mobile) {
+			color: #363636;
+			font-size: 18px;
+			line-height: 22px;
+			text-align: center;
+		}
+		@include screen($tablet, $tablet-max) {
+			text-align: center;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&__form {
+		width: 100%;
+		max-width: 560px;
+		overflow: hidden;
+		@include screen($tablet, $tablet-max) {
+			max-width: none;
+		}
+	}
+}
+
+.contacts-form {
+	&__wrapper {
+		margin: 0;
+		padding: 0;
+		border: none;
+		@include screen($tablet, $tablet-max) {
+			width: 100%;
+			max-width: 500px;
+			margin: 0 auto;
+		}
+	}
+
+	&__title {
+		display: block;
+		margin: 0 0 45px;
+		padding: 0;
+		color: $mainColor;
+		font-family: $OpenSans;
+		font-size: 36px;
+		font-weight: bold;
+		line-height: 24px;
+		text-transform: uppercase;
+		@include max-screen($mobile) {
+			text-align: center;
+		}
+		@include screen($tablet, $tablet-max) {
+			margin: 0 0 30px;
+			text-align: center;
+		}
+	}
+
+	&__control {
+		position: relative;
+		display: inline-block;
+		width: 100%;
+		max-width: 270px;
+		@include max-screen($mobile) {
+			display: block;
+			max-width: 100%;
+			margin-bottom: 40px;
+		}
+		@include screen($tablet, $tablet-max) {
+			display: block;
+			max-width: none;
+			margin: 0 0 20px;
+		}
+
+		&--name {
+			margin-right: 15px;
+			@include screen($mobile, $tablet-max) {
+				margin-right: 0;
+			}
+		}
+
+		&--phone {
+			max-width: 100%;
+			margin: 30px 0;
+			@include screen($tablet, $tablet-max) {
+				margin: 0 0 20px;
+			}
+
+			input {
+				letter-spacing: 0.025em;
+			}
+		}
+
+		&--textarea {
+			display: block;
+			width: 100%;
+			max-width: 100%;
+			margin-top: 20px;
+			@include max-screen($mobile) {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+
+		&--hidden {
+			@include vis-hid;
+		}
+
+		&--button {
+			max-width: 100%;
+			margin-top: 30px;
+			text-align: right;
+			@include max-screen($mobile) {
+				margin-bottom: 50px;
+				text-align: center;
+			}
+		}
+
+		input,
+		textarea {
+			box-sizing: border-box;
+			display: block;
+			width: 100%;
+			padding: 12px 15px;
+			color: $textColor;
+			font-family: $OpenSans;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.4;
+			border: 1px solid $grayColor;
+			border-radius: 0;
+			background-color: transparent;
+			outline: 0;
+			transition: all 0.25s ease-in-out;
+		}
+
+		input {
+			max-height: 45px;
+			&.error {
+				color: red;
+				border-color: red;
+			}
+		}
+
+		label.error {
+			position: absolute;
+			top: -25px;
+			color: red;
+			font-family: $OpenSans;
+			font-size: 12px;
+			line-height: 1;
+		}
+
+		textarea {
+			width: 100%;
+			height: 90px;
+			resize: vertical;
+			@include max-screen($mobile) {
+				height: 144px;
+			}
+		}
+
+		button {
+			@include button(inline-block);
+			box-sizing: border-box;
+
+			&::before {
+				background-color: $mainColor;
+			}
+		}
+	}
+}
+
+.footer-copyrights {
+	padding: 11.5px 0;
+	color: #c3c3c3;
+	font-family: $OpenSans;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 24px;
+	text-align: center;
+	background-color: #191919;
+	@include max-screen($mobile) {
+		padding: 12px 0;
+	}
+
+	small {
+		font-size: 12px;
+		@include max-screen($mobile) {
+			font-size: 11px;
+			line-height: 24px;
+		}
+	}
+}
+
+
+// *** THANK YOU PAGE ***
+// ======================
+.inner-page {
+	margin-top: 71px;
+	padding: 180px 0;
+	@include max-screen($mobile) {
+		margin-top: 47px;
+		padding: 100px 0;
+	}
+}
+.thank-you {
+	color: $textColor;
+	text-align: center;
+
+	&__title {
+		@include max-screen($mobile) {
+			font-size: 1.5em;
+			line-height: 1.43;
+		}
+	}
+
+	&__subtitle {
+		@include max-screen($mobile) {
+			font-size: 1em;
+		}
+	}
+
+	&__descr {
+		@include max-screen($mobile) {
+			font-size: 14px;
+		}
+	}
+}
+
+
+// *** PAGE BOTTOM LINK ***
+// ========================
+.portfolio-link {
+	position: fixed;
+	top: 50%;
+	right: -81px;
+	z-index: 99;
+	display: block;
+	height: 44px;
+	transform: rotate(270deg);
+	transition: all 0.5s;
+	&:hover,
+	&:active,
+	&.active {
+		right: -69px;
+	}
+	//@include max-screen($mobile) {
+	//	right: -69px;
+	//}
+
+	svg {
+		width: 180.9px;
+		height: 44px;
+		path {
+			fill: $mainColor3;
+		}
+	}
+
+	span {
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		font-family: $Jura;
+		color: $whiteColor;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1;
+		text-transform: uppercase;
+		transform: translateX(-50%);
+	}
+}
+
+
+// *** TOTOP ***
+// =============
+.to-top {
+	@include btn-tag;
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	z-index: 99;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 50px;
+	background-color: $mainColor;
+	border-radius: 50%;
+	box-shadow: 0 12px 18px 0 rgba($blackColor, 0.25);
+	transition: all .25s ease-in-out;
+	&.hidden {
+		@include vis-hid;
+	}
+	@include max-screen($mobile) {
+		right: 25px;
+		bottom: 100px;
+	}
+
+	span {
+		display: block;
+		width: 15px;
+		height: 2px;
+		background-color: $whiteColor;
+		transform: rotate(-45deg);
+		transition: all .25s ease-in-out;
+
+		&:last-child {
+			margin-left: -5px;
+			transform: rotate(45deg);
+		}
+	}
+
+	&:hover,
+	&:active,
+	&.active {
+		background-color: $whiteColor;
+
+		span {
+			background-color: $mainColor;
+		}
+	}
+}
+
+// *** ANIMATIONS ***
+// ==================
+@keyframes scale {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(-15vh);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
